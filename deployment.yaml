@@ -5,13 +5,13 @@ metadata:
   labels:
     app: myproject
 spec:
-strategy:
-  type: Recreate
-template:
-  metadata:
-    labels:
-      app: myproject
-      tier: myproject
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: myproject
+        tier: myproject
   spec:
     containers:
     - name: myproject
@@ -25,14 +25,14 @@ template:
 apiVersion: v1
 kind: Service
 metadata:
-name: myproject-service
-labels:
-  app: myproject-service
+  name: myproject-service
+  labels:
+    app: myproject-service
 spec:
-ports:
-  - port: 5000
-    targetPort: 5000
-selector:
-  app: myproject
-  tier: myproject
-type: LoadBalancer
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: myproject
+    tier: myproject
+  type: LoadBalancer

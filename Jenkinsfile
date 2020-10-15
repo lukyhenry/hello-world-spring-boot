@@ -23,7 +23,7 @@ pipeline {
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('https://asia.gcr.io', 'gcr:[molten-enigma-268209]') {
+                    docker.withRegistry('https://asia.gcr.io', 'gcr:molten-enigma-268209') {
                             myapp.push("latest")
                             myapp.push("${env.BUILD_ID}")
                     }

@@ -35,5 +35,5 @@ spec:
     app: myproject
   ports:
     - port: 5000
-      targetPort: 5000
+      targetPort: 80
   type: LoadBalancer

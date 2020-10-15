@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+name: myproject
+labels:
+  app: myproject
+spec:
+strategy:
+  type: Recreate
+template:
+  metadata:
+    labels:
+      app: myproject
+      tier: myproject
+  spec:
+    containers:
+    - name: myproject
+      image: asia.gcr.io/molten-enigma-268209/myproject:latest
+      imagePullPolicy: Always
+      ports:
+      - containerPort: 5000
+        name: myproject
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+name: myproject-service
+labels:
+  app: myproject-service
+spec:
+ports:
+  - port: 5000
+    targetPort: 5000
+selector:
+  app: myproject
+  tier: myproject
+type: LoadBalancer

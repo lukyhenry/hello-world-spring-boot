@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: myproject
-labels:
-  app: myproject
+  name: myproject
+  labels:
+    app: myproject
 spec:
 strategy:
   type: Recreate

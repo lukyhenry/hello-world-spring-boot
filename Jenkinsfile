@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("molten-enigma-268209/myproject:${env.BUILD_ID}")
+                    myapp = docker.build("asia.gcr.io/molten-enigma-268209/myproject:${env.BUILD_ID}")
 					// TO TEST WEBHOOK
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('https://asia.gcr.io', 'gcr:[env.CREDENTIALS_ID]') {
+                    docker.withRegistry('https://asia.gcr.io', 'gcr:env.CREDENTIALS_ID') {
                             myapp.push("latest")
                             myapp.push("${env.BUILD_ID}")
                     }

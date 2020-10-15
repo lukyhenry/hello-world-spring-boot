@@ -7,11 +7,13 @@ metadata:
 spec:
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: myproject
   template:
     metadata:
       labels:
         app: myproject
-        tier: myproject
   spec:
     containers:
     - name: myproject
@@ -29,10 +31,9 @@ metadata:
   labels:
     app: myproject-service
 spec:
+  selector:
+    app: myproject
   ports:
     - port: 5000
       targetPort: 5000
-  selector:
-    app: myproject
-    tier: myproject
   type: LoadBalancer

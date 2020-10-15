@@ -23,15 +23,13 @@ pipeline {
         stage("Push image") {
             steps {
                 script {
-					withCredentials([file(credentialsId: CREDENTIALS_ID, variable: 'serviceaccountkey')]) {
-						docker.withRegistry('https://asia.gcr.io', 'gcr:[serviceaccountkey]') {
-								myapp.push("latest")
-								myapp.push("${env.BUILD_ID}")
-						}
-					}
-				}
-			}
-		}			
+                    docker.withRegistry('https://asia.gcr.io', 'gcr:[molten-enigma-268209]') {
+                            myapp.push("latest")
+                            myapp.push("${env.BUILD_ID}")
+                    }
+                }
+            }
+        }        
         stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/myproject:latest/myproject:${env.BUILD_ID}/g' deployment.yaml"

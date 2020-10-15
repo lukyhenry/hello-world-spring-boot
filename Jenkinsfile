@@ -23,13 +23,15 @@ pipeline {
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('https://asia.gcr.io', 'CREDENTIALS_ID') {
-                            myapp.push("latest")
-                            myapp.push("${env.BUILD_ID}")
-                    }
-                }
-            }
-        }        
+					withCredentials([file(credentialsId: jenkinsServiceAccountKey, variable: 'serviceaccountkey')]) {
+						docker.withRegistry('https://asia.gcr.io', 'gcr:[serviceaccountkey]') {
+								myapp.push("latest")
+								myapp.push("${env.BUILD_ID}")
+						}
+					}
+				}
+			}
+		}			
         stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/myproject:latest/myproject:${env.BUILD_ID}/g' deployment.yaml"

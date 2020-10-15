@@ -5,6 +5,7 @@ metadata:
   labels:
     app: myproject
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: myproject
